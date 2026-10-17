@@ -415,3 +415,70 @@ h1 { margin: 0; color: var(--navy); font: 800 clamp(25px, 3vw, 34px) Manrope, sa
 .inspiration>button { display:flex; align-items:center; gap:5px; margin-top:13px; padding:0; border:0; background:transparent; color:#9a762f; font-size:10px; font-weight:800; }
 @media(max-width:900px) { .topbar { padding:0 22px; } .content { padding:28px 22px 40px; } .sidebar { width:220px; flex-basis:220px; } }
 @media(max-width:680px) { .app-shell { display:block; } .sidebar { width:100%; padding:13px 14px; gap:12px; } .brand { padding:0 4px; } .sidebar>div:not(.sidebar-bottom) { overflow-x:auto; } .nav-label { display:none; } .nav-list { display:flex; width:max-content; gap:5px; } .nav-item { width:auto; padding:9px 10px; font-size:10px; white-space:nowrap; } .nav-item svg { width:15px; height:15px; } .sidebar-bottom { display:none; } .topbar { height:auto; min-height:65px; padding:10px 14px; gap:10px; } .top-actions { gap:8px; } .top-search { width:38px; padding:0 10px; } .top-search input { display:none; } .profile-copy { display:none; } .content { padding:24px 14px 35px; } .workspace-panel { padding:18px 14px; } .workspace-heading h2 { font-size:19px; } .achievement-grid,.achievement-summary { grid-template-columns:1fr; } .quick-links { grid-template-columns:1fr; } .chat-composer { flex-wrap:wrap; } .chat-composer input { min-height:42px; flex-basis:100%; } .setting-row { align-items:flex-start; } .setting-row select { max-width:145px; } }
+
+
+/* SUNAI visual refresh — calm, premium learning dashboard */
+:root { --sunai-ink:#17243d; --sunai-muted:#71809a; --sunai-line:#e8edf5; --sunai-blue:#426cf5; }
+body { background:#f5f7fc; }
+.app-shell { min-height:100vh; background:#f5f7fc; }
+.sidebar { background:linear-gradient(180deg,#111d36 0%,#172846 100%); color:#d9e4fb; border-right:0; box-shadow:8px 0 35px rgba(20,36,68,.08); }
+.brand { padding:24px 23px 30px; }
+.brand-name { color:#fff; letter-spacing:-.8px; }
+.brand-mark { background:linear-gradient(135deg,#ffe18a,#ffb62e); color:#17243d; box-shadow:0 7px 18px #ffcb5540; border-radius:13px; }
+.nav-label { color:#8192b1; letter-spacing:1.5px; font-size:9px; padding-left:23px; }
+.nav-list { padding:8px 13px 22px; gap:5px; }
+.nav-item { color:#aebbd2; border-radius:11px; padding:12px 13px; font-size:12px; transition:all .18s ease; }
+.nav-item svg { width:17px; height:17px; }
+.nav-item:hover { background:#ffffff12; color:#fff; transform:translateX(2px); }
+.nav-item.active { background:linear-gradient(100deg,#416cf0,#5b83ff); color:#fff; box-shadow:0 8px 20px #315de64d; }
+.help-card { margin:0 13px 16px; border:1px solid #ffffff20; border-radius:16px; background:#ffffff0c; padding:16px; }
+.help-card strong { color:#fff; font-size:12px; }
+.help-card p { color:#aab9d3; line-height:1.65; font-size:10px; }
+.help-card button { background:#ffcf63; color:#19243b; border-radius:9px; font-weight:800; }
+.main-area { background:#f5f7fc; }
+.topbar { height:76px; background:#ffffffd9; backdrop-filter:blur(18px); border-bottom:1px solid #e9edf5; }
+.breadcrumb { color:#8b97aa; font-size:11px; }
+.breadcrumb strong { color:#243654; }
+.content { max-width:1450px; padding:38px 42px 55px; }
+.welcome-row { margin-bottom:28px; }
+.welcome-row h1 { color:#17243d; font-size:clamp(27px,3vw,36px); letter-spacing:-1.4px; }
+.welcome-row p { color:#7b89a0; font-size:13px; }
+.eyebrow { color:#5578e9; font-size:9px; letter-spacing:1.4px; font-weight:800; }
+.date-chip { border:1px solid #e5eaf3; background:#fff; border-radius:30px; padding:10px 15px; color:#71809a; box-shadow:0 4px 14px #1a2e5010; }
+.hero { min-height:250px; border-radius:24px; padding:34px 38px; background:radial-gradient(circle at 78% 20%,#527cf7 0,#315bd8 35%,#203d8f 100%); box-shadow:0 16px 38px #294da52e; overflow:hidden; }
+.hero-copy { max-width:510px; }
+.hero-tag { color:#ffe5a5; background:#ffffff18; border:1px solid #ffffff20; border-radius:30px; padding:7px 11px; }
+.hero h2 { color:#fff; font-size:29px; letter-spacing:-.8px; }
+.hero p { color:#d9e4ff; font-size:12px; line-height:1.8; max-width:440px; }
+.hero .primary-button { background:#ffcf63; color:#1b2c56; box-shadow:0 7px 18px #172d6540; }
+.hero-art { opacity:.95; }
+.sun-core { background:linear-gradient(135deg,#fff2bf,#ffc44d); color:#c78b1d; box-shadow:0 0 70px #ffdf7d70; }
+.floating-card { border:1px solid #ffffff3d; background:#ffffffeb; color:#2b3d61; box-shadow:0 12px 25px #0e235d40; }
+.section-heading { margin:27px 0 13px; }
+.section-heading h3 { color:#243654; font-size:14px; letter-spacing:-.2px; }
+.section-heading button { color:#5475df; font-size:10px; font-weight:800; }
+.stats-grid { gap:13px; }
+.stat-card,.panel,.workspace-panel { border:1px solid #e8edf5; border-radius:17px; background:#fff; box-shadow:0 5px 18px #1b31500a; }
+.stat-card { padding:17px; transition:transform .18s,box-shadow .18s; }
+.stat-card:hover,.panel:hover { transform:translateY(-2px); box-shadow:0 10px 25px #1b315012; }
+.stat-value { color:#1e2d49; font-size:21px; }
+.stat-label { color:#8491a6; font-size:10px; }
+.dashboard-grid { gap:23px; }
+.course-card { gap:15px; }
+.course-art { border-radius:13px; background:linear-gradient(135deg,#e7edff,#d7e3ff); color:#416cf5; }
+.course-info strong { color:#243654; font-size:12px; }
+.progress-track { background:#edf1f8; border-radius:20px; }
+.progress-fill { background:linear-gradient(90deg,#416cf5,#78a0ff); }
+.activity-icon { background:#eef3ff; color:#5275e7; border-radius:11px; }
+.inspiration { border-radius:17px; }
+.top-actions { gap:12px; }
+.language-switch { display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 11px; border:1px solid #e4eaf4; border-radius:10px; background:#fff; color:#425b91; font-size:10px; font-weight:800; cursor:pointer; box-shadow:0 3px 10px #1b31500a; }
+.language-switch:hover { border-color:#9db3fb; background:#f7f9ff; }
+.language-chevron { color:#98a5b8; font-size:13px; }
+.workspace-panel { padding:30px; box-shadow:0 10px 30px #1b31500b; }
+.workspace-heading h2 { font-size:24px; letter-spacing:-.8px; }
+.question-card,.dictionary-entry,.achievement-card { border-radius:15px; }
+.primary-button { border-radius:11px; box-shadow:0 5px 13px #315de61c; transition:transform .16s,box-shadow .16s; }
+.primary-button:hover:not(:disabled) { transform:translateY(-1px); box-shadow:0 8px 18px #315de62b; }
+@media(max-width:900px) { .content { padding:28px 22px 40px; } }
+@media(max-width:680px) { .content { padding:22px 14px 35px; } .brand { padding:10px 4px; } .topbar { background:#fff; } .language-switch { height:33px; padding:0 8px; } .hero { padding:25px 22px; } .hero h2 { font-size:24px; } .workspace-panel { padding:18px 14px; } }
