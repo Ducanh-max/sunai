@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Check, CheckCircle2, Lightbulb, RotateCcw, Sparkles, Volume2 } from "lucide-react";
 
 const lessonContent = {
@@ -53,6 +53,9 @@ type LessonKey = keyof typeof lessonContent;
 export default function LessonPage() {
   const params = useParams<{id:string}>();
   const lesson = useMemo(() => lessonContent[params.id as LessonKey] ?? lessonContent["a1-greetings"], [params.id]);
+  const [language, setLanguage] = useState<"en" | "vi">("en");
+  const tr = (en: string, vi: string) => language === "vi" ? vi : en;
+  useEffect(() => { setLanguage((localStorage.getItem("sunai-language") as "en" | "vi") || "en"); }, []);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [checked, setChecked] = useState(false);
   const [step, setStep] = useState<"learn"|"practice"|"complete">("learn");
@@ -66,9 +69,9 @@ export default function LessonPage() {
 
   return (
     <main className="lesson-page">
-      <header className="lesson-topbar"><Link href="/courses" className="back-link"><ArrowLeft size={16}/> All courses</Link><div className="catalog-brand"><span className="catalog-brand-mark">S</span> SUN<span>AI</span></div><div className="lesson-top-label"><Sparkles size={14}/> Learn by doing</div></header>
+      <header className="lesson-topbar"><Link href="/courses" className="back-link"><ArrowLeft size={16}/> {tr("All courses","Tất cả khóa học")}</Link><div className="catalog-brand"><span className="catalog-brand-mark">S</span> SUN<span>AI</span></div><div className="lesson-top-label"><button className="language-switch" type="button" onClick={() => { const next = language === "en" ? "vi" : "en"; setLanguage(next); localStorage.setItem("sunai-language", next); }}><LanguagesIcon/> {language.toUpperCase()}</button><Sparkles size={14}/> {tr("Learn by doing","Học đi đôi với hành")}</div></header>
       <div className="lesson-layout">
-        <aside className="lesson-sidebar"><div className="lesson-side-title">YOUR LESSON</div><div className="lesson-side-course">{lesson.course}</div><div className="lesson-step-list"><div className={step==="learn"?"lesson-step active":"lesson-step"}><span>1</span><div><strong>Learn</strong><small>Words and examples</small></div></div><div className={step==="practice"?"lesson-step active":"lesson-step"}><span>2</span><div><strong>Practice</strong><small>Check your understanding</small></div></div><div className={step==="complete"?"lesson-step active":"lesson-step"}><span>3</span><div><strong>Complete</strong><small>Review your result</small></div></div></div><div className="lesson-side-tip"><Lightbulb size={18}/><strong>Learning tip</strong><p>Say each new phrase out loud. Speaking helps you remember it.</p></div></aside>
+        <aside className="lesson-sidebar"><div className="lesson-side-title">{tr("YOUR LESSON","BÀI HỌC CỦA BẠN")}</div><div className="lesson-side-course">{lesson.course}</div><div className="lesson-step-list"><div className={step==="learn"?"lesson-step active":"lesson-step"}><span>1</span><div><strong>{tr("Learn","Học")}</strong><small>{tr("Words and examples","Từ vựng và ví dụ")}</small></div></div><div className={step==="practice"?"lesson-step active":"lesson-step"}><span>2</span><div><strong>{tr("Practice","Luyện tập")}</strong><small>{tr("Check your understanding","Kiểm tra kiến thức")}</small></div></div><div className={step==="complete"?"lesson-step active":"lesson-step"}><span>3</span><div><strong>{tr("Complete","Hoàn thành")}</strong><small>{tr("Review your result","Xem kết quả")}</small></div></div></div><div className="lesson-side-tip"><Lightbulb size={18}/><strong>{tr("Learning tip","Mẹo học tập")}</strong><p>{tr("Say each new phrase out loud. Speaking helps you remember it.","Hãy đọc to từng cụm từ mới. Luyện nói giúp bạn ghi nhớ tốt hơn.")}</p></div></aside>
 
         <section className="lesson-main">
           <div className="lesson-progress-row"><span>{lesson.level}</span><span>{step==="learn"?"Part 1 of 3":step==="practice"?"Part 2 of 3":"Part 3 of 3"}</span></div>
@@ -76,26 +79,26 @@ export default function LessonPage() {
 
           {step==="learn" ? <div className="lesson-content">
             <div className="lesson-eyebrow"><BookOpen size={14}/> MINI LESSON</div><h1>{lesson.title}</h1><p className="lesson-intro">{lesson.intro}</p>
-            <div className="lesson-objective"><TargetIcon/><span><strong>Today&#39;s goal</strong>{lesson.objective}</span></div>
-            <h2>Key words and phrases</h2>
+            <div className="lesson-objective"><TargetIcon/><span><strong>{tr("Today&#39;s goal","Mục tiêu hôm nay")}</strong>{lesson.objective}</span></div>
+            <h2>{tr("Key words and phrases","Từ và cụm từ quan trọng")}</h2>
             <div className="vocab-grid">{lesson.words.map((item) => <article className="vocab-card" key={item.word}><div className="vocab-card-top"><span>{item.type}</span><button type="button" aria-label={`Listen to ${item.word}`} onClick={() => {if ("speechSynthesis" in window) {window.speechSynthesis.cancel();window.speechSynthesis.speak(new SpeechSynthesisUtterance(item.word));}}}><Volume2 size={16}/></button></div><h3>{item.word}</h3><div className="vocab-meaning">{item.meaning}</div><p>{item.example}</p></article>)}</div>
-            <h2>See it in a conversation</h2><div className="dialogue-card">{lesson.dialogue.map((line,index)=><div className={index%2===0?"dialogue-line left":"dialogue-line right"} key={index}><span>{line.speaker}</span><p>{line.line}</p></div>)}</div>
-            <div className="lesson-actions"><span>Take your time. You can review these phrases again.</span><button type="button" className="course-start-button" onClick={()=>setStep("practice")}>Start practice <ArrowRight size={16}/></button></div>
+            <h2>{tr("See it in a conversation","Học qua hội thoại")}</h2><div className="dialogue-card">{lesson.dialogue.map((line,index)=><div className={index%2===0?"dialogue-line left":"dialogue-line right"} key={index}><span>{line.speaker}</span><p>{line.line}</p></div>)}</div>
+            <div className="lesson-actions"><span>{tr("Take your time. You can review these phrases again.","Hãy học theo tốc độ của bạn. Bạn có thể xem lại các cụm từ này.")}</span><button type="button" className="course-start-button" onClick={()=>setStep("practice")}>Start practice <ArrowRight size={16}/></button></div>
           </div> : null}
 
           {step==="practice" ? <div className="lesson-content">
-            <div className="lesson-eyebrow"><CheckCircle2 size={14}/> QUICK CHECK</div><h1>Let&#39;s practise!</h1><p className="lesson-intro">Choose the best answer for each question. You’ll see an explanation after checking.</p>
+            <div className="lesson-eyebrow"><CheckCircle2 size={14}/> QUICK CHECK</div><h1>{tr("Let&#39;s practise!","Cùng luyện tập nhé!")}</h1><p className="lesson-intro">{tr("Choose the best answer for each question. You’ll see an explanation after checking.","Chọn đáp án đúng nhất cho mỗi câu. Bạn sẽ xem được lời giải sau khi kiểm tra.")}</p>
             <div className="quiz-list">{lesson.questions.map((question,index)=><article className="quiz-card" key={question.prompt}><div className="quiz-number">QUESTION {index+1} OF {lesson.questions.length}</div><h3>{question.prompt}</h3><div className="quiz-options">{question.options.map((option,optionIndex)=><button key={option} type="button" disabled={checked} className={`quiz-option ${answers[index]===optionIndex?"chosen":""} ${checked&&optionIndex===question.answer?"correct":checked&&answers[index]===optionIndex&&optionIndex!==question.answer?"incorrect":""}`} onClick={()=>selectAnswer(index,optionIndex)}><span>{String.fromCharCode(65+optionIndex)}</span>{option}{checked&&optionIndex===question.answer?<Check size={16}/>:null}</button>)}</div>{checked?<div className={answers[index]===question.answer?"answer-explanation good":"answer-explanation"}>{answers[index]===question.answer?"Correct!":"Not quite."} {question.explain}</div>:null}</article>)}</div>
             <div className="lesson-actions"><button type="button" className="lesson-text-button" onClick={()=>{setStep("learn");setChecked(false);}}> <ArrowLeft size={15}/> Review lesson</button>{checked?<button type="button" className="course-start-button" onClick={()=>setStep("complete")}>See my result <ArrowRight size={16}/></button>:<button type="button" className="course-start-button" disabled={!allAnswered} onClick={()=>setChecked(true)}>Check answers <CheckCircle2 size={16}/></button>}</div>
           </div>:null}
 
-          {step==="complete" ? <div className="lesson-content completion-content"><div className="completion-icon"><CheckCircle2 size={42}/></div><div className="lesson-eyebrow">LESSON FINISHED</div><h1>Nice work!</h1><p className="lesson-intro">You’ve completed this practice session. Every small step helps you build confidence.</p><div className="score-panel"><span>Your practice score</span><strong>{score} / {lesson.questions.length}</strong><div className="score-track"><span style={{width:`${score/lesson.questions.length*100}%`}}/></div><small>{score===lesson.questions.length?"Excellent work!":score>0?"Good effort. Review the explanations and try again.":"Keep practising. You can do it!"}</small></div><div className="completion-actions"><button type="button" className="lesson-outline-button" onClick={()=>{setAnswers({});setChecked(false);setStep("practice");}}><RotateCcw size={15}/> Try again</button><Link href="/courses" className="course-start-button">Explore more courses <ArrowRight size={16}/></Link></div></div>:null}
+          {step==="complete" ? <div className="lesson-content completion-content"><div className="completion-icon"><CheckCircle2 size={42}/></div><div className="lesson-eyebrow">{tr("LESSON FINISHED","HOÀN THÀNH BÀI HỌC")}</div><h1>{tr("Nice work!","Làm tốt lắm!")}</h1><p className="lesson-intro">{tr("You’ve completed this practice session. Every small step helps you build confidence.","Bạn đã hoàn thành lượt luyện tập này. Mỗi bước nhỏ giúp bạn tự tin hơn.")}</p><div className="score-panel"><span>{tr("Your practice score","Điểm luyện tập")}</span><strong>{score} / {lesson.questions.length}</strong><div className="score-track"><span style={{width:`${score/lesson.questions.length*100}%`}}/></div><small>{score===lesson.questions.length?"Excellent work!":score>0?"Good effort. Review the explanations and try again.":"Keep practising. You can do it!"}</small></div><div className="completion-actions"><button type="button" className="lesson-outline-button" onClick={()=>{setAnswers({});setChecked(false);setStep("practice");}}><RotateCcw size={15}/> Try again</button><Link href="/courses" className="course-start-button">Explore more courses <ArrowRight size={16}/></Link></div></div>:null}
         </section>
       </div>
     </main>
   );
 }
 
-function TargetIcon() {
+function LanguagesIcon() { return <span aria-hidden="true">文</span>; }\n\nfunction TargetIcon() {
   return <span className="objective-icon"><Sparkles size={17}/></span>;
 }
