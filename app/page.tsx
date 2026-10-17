@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Award, BookOpen, Brain, CalendarDays, CheckCircle2, ChevronRight,
-  Flame, HelpCircle, Home, Languages, MessageCircle, Mic2,
+  Flame, Headphones, HelpCircle, Home, Languages, MessageCircle, Mic2,
   Search, Settings2, Sparkles, Star, Target, Trophy, Zap, Bell,
   Send, Volume2, RotateCcw, Bookmark, BookMarked, CircleCheck, Lock,
 } from "lucide-react";
