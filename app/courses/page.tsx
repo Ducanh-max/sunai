@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
   ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Headphones,
-  Languages, Mic2, Search, Sparkles, Star, Target,
+  Languages, Mic2, Search, Sparkles, Star,
 } from "lucide-react";
 
 type Level = "All" | "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
