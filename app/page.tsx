@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   Award, BookOpen, Brain, CalendarDays, CheckCircle2, ChevronRight,
   Flame, Headphones, HelpCircle, Home, Languages, MessageCircle, Mic2,
@@ -204,7 +204,7 @@ export default function DashboardPage() {
   );
 }
 
-function Achievement({ icon, title, desc, unlocked }: { icon: React.ReactNode; title: string; desc: string; unlocked: boolean }) {
+function Achievement({ icon, title, desc, unlocked }: { icon: ReactNode; title: string; desc: string; unlocked: boolean }) {
   return <article className={`achievement-card ${unlocked ? "unlocked" : ""}`}><div className="achievement-icon">{unlocked ? icon : <Lock size={19} />}</div><div><strong>{title}</strong><p>{desc}</p><span>{unlocked ? "UNLOCKED" : "NOT YET UNLOCKED"}</span></div></article>;
 }
 
