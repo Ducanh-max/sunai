@@ -78,7 +78,7 @@ export default function CoursesPage() {
           <div className="catalog-filter-row">
             <label className="catalog-search"><Search size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tr("Search courses...","Tìm khóa học...")} aria-label={tr("Search courses","Tìm khóa học")}/></label>
             <select className="skill-select" value={skill} onChange={(event) => setSkill(event.target.value)} aria-label={tr("Filter by skill","Lọc theo kỹ năng")}>
-              <option>{tr("All skills","Tất cả kỹ năng")}</option><option>Vocabulary</option><option>Grammar</option><option>Listening</option><option>Speaking</option><option>Reading</option><option>Writing</option><option>Communication</option>
+              <option>{tr("All skills","Tất cả kỹ năng")}</option><option value="Vocabulary">{tr("Vocabulary","Từ vựng")}</option><option value="Grammar">{tr("Grammar","Ngữ pháp")}</option><option value="Listening">{tr("Listening","Nghe hiểu")}</option><option value="Speaking">{tr("Speaking","Luyện nói")}</option><option value="Reading">{tr("Reading","Đọc hiểu")}</option><option value="Writing">{tr("Writing","Viết")}</option><option value="Communication">{tr("Communication","Giao tiếp")}</option>
             </select>
           </div>
         </div>
