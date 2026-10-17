@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Clock3, Headphones,
   Languages, Mic2, Search, Sparkles, Star,
@@ -26,6 +26,9 @@ const courses = [
 
 export default function CoursesPage() {
   const [level, setLevel] = useState<Level>("All");
+  const [language, setLanguage] = useState<"en" | "vi">("en");
+  const tr = (en: string, vi: string) => language === "vi" ? vi : en;
+  useEffect(() => { setLanguage((localStorage.getItem("sunai-language") as "en" | "vi") || "en"); }, []);
   const [query, setQuery] = useState("");
   const [skill, setSkill] = useState("All skills");
 
@@ -40,16 +43,16 @@ export default function CoursesPage() {
   return (
     <main className="catalog-page">
       <header className="catalog-topbar">
-        <Link className="back-link" href="/"><ArrowLeft size={16}/> Dashboard</Link>
+        <Link className="back-link" href="/"><ArrowLeft size={16}/> {tr("Dashboard","Bảng điều khiển")}</Link>
         <div className="catalog-brand"><span className="catalog-brand-mark">S</span> SUN<span>AI</span></div>
-        <div className="catalog-top-note"><Sparkles size={15}/> Your learning, your pace</div>
+        <div className="catalog-top-note"><button className="language-switch" type="button" onClick={() => { const next = language === "en" ? "vi" : "en"; setLanguage(next); localStorage.setItem("sunai-language", next); }}><Languages size={15}/>{language.toUpperCase()}</button><Sparkles size={15}/> {tr("Your learning, your pace","Học theo cách của bạn")}</div>
       </header>
 
       <section className="catalog-hero">
         <div className="catalog-hero-copy">
           <div className="catalog-eyebrow"><BookOpen size={14}/> SUNAI LEARNING PATHS</div>
-          <h1>Find your next step<br/><span>in English.</span></h1>
-          <p>From your very first words to advanced communication, choose a path that matches your goals.</p>
+          <h1>{tr("Find your next step","Tìm bước tiến tiếp theo")}<br/><span>{tr("in English.","trên hành trình tiếng Anh.")}</span></h1>
+          <p>{tr("From your very first words to advanced communication, choose a path that matches your goals.","Từ những từ đầu tiên đến giao tiếp nâng cao, hãy chọn lộ trình phù hợp với mục tiêu của bạn.")}</p>
           <div className="catalog-hero-points">
             <span><CheckCircle2 size={15}/> Beginner to proficient</span>
             <span><CheckCircle2 size={15}/> Learn at your own pace</span>
@@ -64,18 +67,18 @@ export default function CoursesPage() {
 
       <section className="catalog-content">
         <div className="catalog-heading-row">
-          <div><div className="catalog-eyebrow">EXPLORE COURSES</div><h2>Learning paths for every level</h2><p>Choose a level to discover courses designed around real-life English.</p></div>
-          <div className="course-count"><strong>{filtered.length}</strong><span> courses</span></div>
+          <div><div className="catalog-eyebrow">{tr("EXPLORE COURSES","KHÁM PHÁ KHÓA HỌC")}</div><h2>{tr("Learning paths for every level","Lộ trình học cho mọi trình độ")}</h2><p>{tr("Choose a level to discover courses designed around real-life English.","Chọn trình độ để khám phá các khóa học tiếng Anh ứng dụng thực tế.")}</p></div>
+          <div className="course-count"><strong>{filtered.length}</strong><span>{tr(" courses"," khóa học")}</span></div>
         </div>
 
         <div className="catalog-filters">
-          <div className="level-tabs" role="group" aria-label="Filter by English level">
+          <div className="level-tabs" role="group" aria-label={tr("Filter by English level","Lọc theo trình độ tiếng Anh")}>
             {levels.map((item) => <button key={item} type="button" className={level === item ? "level-tab selected" : "level-tab"} onClick={() => setLevel(item)}>{item === "All" ? "All levels" : item}</button>)}
           </div>
           <div className="catalog-filter-row">
-            <label className="catalog-search"><Search size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search courses..." aria-label="Search courses"/></label>
-            <select className="skill-select" value={skill} onChange={(event) => setSkill(event.target.value)} aria-label="Filter by skill">
-              <option>All skills</option><option>Vocabulary</option><option>Grammar</option><option>Listening</option><option>Speaking</option><option>Reading</option><option>Writing</option><option>Communication</option>
+            <label className="catalog-search"><Search size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tr("Search courses...","Tìm khóa học...")} aria-label={tr("Search courses","Tìm khóa học")}/></label>
+            <select className="skill-select" value={skill} onChange={(event) => setSkill(event.target.value)} aria-label={tr("Filter by skill","Lọc theo kỹ năng")}>
+              <option>{tr("All skills","Tất cả kỹ năng")}</option><option>Vocabulary</option><option>Grammar</option><option>Listening</option><option>Speaking</option><option>Reading</option><option>Writing</option><option>Communication</option>
             </select>
           </div>
         </div>
@@ -87,20 +90,20 @@ export default function CoursesPage() {
                 <div className={`catalog-card-art ${course.color}`}>
                   <div className="catalog-level-pill">{course.level}</div>
                   {course.skills[0] === "Listening" ? <Headphones size={36}/> : course.skills[0] === "Speaking" ? <Mic2 size={36}/> : course.skills[0] === "Vocabulary" ? <Languages size={36}/> : <BookOpen size={36}/>}
-                  <span className="catalog-art-label">{course.category}</span>
+                  <span className="catalog-art-label">{language === "vi" ? ({Beginner:"Cơ bản",Elementary:"Sơ cấp",Intermediate:"Trung cấp","Upper-intermediate":"Trung cấp cao",Advanced:"Nâng cao",Proficient:"Thành thạo"} as Record<string,string>)[course.category] : course.category}</span>
                 </div>
                 <div className="catalog-card-body">
-                  <div className="catalog-skill-tags">{course.skills.map((item) => <span key={item}>{item}</span>)}</div>
+                  <div className="catalog-skill-tags">{course.skills.map((item) => <span key={item}>{language === "vi" ? ({Vocabulary:"Từ vựng",Speaking:"Luyện nói",Listening:"Nghe hiểu",Grammar:"Ngữ pháp",Writing:"Viết",Reading:"Đọc hiểu",Communication:"Giao tiếp"} as Record<string,string>)[item] : item}</span>)}</div>
                   <h3>{course.title}</h3><div className="catalog-subtitle">{course.subtitle}</div>
                   <p>{course.description}</p>
-                  <div className="catalog-course-meta"><span><BookOpen size={14}/>{course.lessons} lessons</span><span><Clock3 size={14}/>{course.minutes} min</span></div>
-                  <Link className="course-start-button" href={`/lesson/${course.id}`}>Explore course <ArrowRight size={15}/></Link>
+                  <div className="catalog-course-meta"><span><BookOpen size={14}/>{course.lessons} {tr("lessons","bài học")}</span><span><Clock3 size={14}/>{course.minutes} {tr("min","phút")}</span></div>
+                  <Link className="course-start-button" href={`/lesson/${course.id}`}>{tr("Explore course","Khám phá khóa học")} <ArrowRight size={15}/></Link>
                 </div>
               </article>
             ))}
           </div>
         ) : (
-          <div className="catalog-empty"><Search size={26}/><h3>No courses found</h3><p>Try another keyword, level or skill filter.</p><button type="button" onClick={() => {setLevel("All");setQuery("");setSkill("All skills");}}>Clear filters</button></div>
+          <div className="catalog-empty"><Search size={26}/><h3>{tr("No courses found","Không tìm thấy khóa học")}</h3><p>{tr("Try another keyword, level or skill filter.","Hãy thử từ khóa, trình độ hoặc kỹ năng khác.")}</p><button type="button" onClick={() => {setLevel("All");setQuery("");setSkill("All skills");}}>{tr("Clear filters","Xóa bộ lọc")}</button></div>
         )}
       </section>
       <footer className="catalog-footer">SUNAI · Learn Smarter. Speak Brighter.</footer>
