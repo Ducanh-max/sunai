@@ -169,7 +169,7 @@ export default function DashboardPage() {
                   <div className="activity">
                     <div className="activity-icon"><CheckCircle2 size={17} /></div>
                     <div className="activity-copy"><strong>Your journey begins</strong><span>Your SUNAI learning space is ready</span></div>
-                    <span className="activity-xp">Let&apos;s go</span>
+                    <span className="activity-xp">Let&#39;s go</span>
                   </div>
                   <div className="activity">
                     <div className="activity-icon"><Award size={17} /></div>
