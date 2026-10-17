@@ -43,7 +43,7 @@ export default function DashboardPage() {
               <button
                 className={`nav-item ${activeNav === label ? "active" : ""}`}
                 key={label}
-                onClick={() => setActiveNav(label)}
+                onClick={() => label === "My learning" ? window.location.assign("/courses") : setActiveNav(label)}
                 type="button"
               >
                 <Icon />
@@ -109,7 +109,7 @@ export default function DashboardPage() {
               <div className="hero-tag"><Sparkles size={13} /> A brighter way to learn</div>
               <h2>Small steps. Big progress.</h2>
               <p>Build real-world English skills with bite-sized lessons, daily practice, and a learning path that grows with you.</p>
-              <button className="primary-button" type="button" onClick={() => setActiveNav("My learning")}>
+              <button className="primary-button" type="button" onClick={() => window.location.assign("/courses")}>
                 Explore learning paths <ChevronRight size={16} />
               </button>
             </div>
