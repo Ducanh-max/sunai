@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {
-  Activity, Award, BookOpen, Brain, CalendarDays, CheckCircle2,
+  Award, BookOpen, Brain, CalendarDays, CheckCircle2,
   ChevronRight, Flame, Headphones, HelpCircle, Home, Languages,
   MessageCircle, Mic2, Search, Settings2, Sparkles, Star, Target,
   Trophy, Zap, Bell,
