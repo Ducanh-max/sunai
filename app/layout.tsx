@@ -2,17 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SUNAI — Learn Smarter. Speak Brighter.",
-  description:
-    "Build your English skills with guided lessons, daily practice, and AI-powered learning.",
+  title: "AUNORA — Learn. Grow. Glow.",
+  description: "AUNORA is your friendly AI-powered English learning space. Learn with guided lessons, daily practice, and a little dragon companion.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body>{children}</body></html>;
 }
