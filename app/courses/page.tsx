@@ -50,18 +50,18 @@ export default function CoursesPage() {
 
       <section className="catalog-hero">
         <div className="catalog-hero-copy">
-          <div className="catalog-eyebrow"><BookOpen size={14}/> SUNAI LEARNING PATHS</div>
+          <div className="catalog-eyebrow"><BookOpen size={14}/> {tr("SUNAI LEARNING PATHS","LỘ TRÌNH HỌC SUNAI")}</div>
           <h1>{tr("Find your next step","Tìm bước tiến tiếp theo")}<br/><span>{tr("in English.","trên hành trình tiếng Anh.")}</span></h1>
           <p>{tr("From your very first words to advanced communication, choose a path that matches your goals.","Từ những từ đầu tiên đến giao tiếp nâng cao, hãy chọn lộ trình phù hợp với mục tiêu của bạn.")}</p>
           <div className="catalog-hero-points">
-            <span><CheckCircle2 size={15}/> Beginner to proficient</span>
-            <span><CheckCircle2 size={15}/> Learn at your own pace</span>
+            <span><CheckCircle2 size={15}/> {tr("Beginner to proficient","Từ cơ bản đến thành thạo")}</span>
+            <span><CheckCircle2 size={15}/> {tr("Learn at your own pace","Học theo tốc độ của bạn")}</span>
           </div>
         </div>
         <div className="catalog-hero-art" aria-hidden="true">
           <div className="catalog-orbit orbit-one"/><div className="catalog-orbit orbit-two"/>
           <div className="catalog-book"><BookOpen size={57}/></div>
-          <div className="catalog-floating"><Star size={14} fill="currentColor"/> Keep growing</div>
+          <div className="catalog-floating"><Star size={14} fill="currentColor"/> {tr("Keep growing","Không ngừng tiến bộ")}</div>
         </div>
       </section>
 
@@ -73,7 +73,7 @@ export default function CoursesPage() {
 
         <div className="catalog-filters">
           <div className="level-tabs" role="group" aria-label={tr("Filter by English level","Lọc theo trình độ tiếng Anh")}>
-            {levels.map((item) => <button key={item} type="button" className={level === item ? "level-tab selected" : "level-tab"} onClick={() => setLevel(item)}>{item === "All" ? "All levels" : item}</button>)}
+            {levels.map((item) => <button key={item} type="button" className={level === item ? "level-tab selected" : "level-tab"} onClick={() => setLevel(item)}>{item === "All" ? tr("All levels","Tất cả trình độ") : item}</button>)}
           </div>
           <div className="catalog-filter-row">
             <label className="catalog-search"><Search size={17}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={tr("Search courses...","Tìm khóa học...")} aria-label={tr("Search courses","Tìm khóa học")}/></label>
